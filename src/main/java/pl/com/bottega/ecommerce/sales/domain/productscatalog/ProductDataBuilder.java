@@ -7,9 +7,9 @@ import java.util.Date;
 
 public class ProductDataBuilder {
     private Id productId = Id.generate();
-    private Money price = new Money(10);
-    private String name = "John Smith";
-    private ProductType type = ProductType.DRUG;
+    private Money price = new Money(0);
+    private String name = "Default Product";
+    private ProductType type = ProductType.STANDARD;
     private Date snapshotDate = new Date() ;
 
     public ProductDataBuilder() {}
