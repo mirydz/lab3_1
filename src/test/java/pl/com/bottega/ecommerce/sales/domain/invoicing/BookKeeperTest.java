@@ -3,6 +3,7 @@ package pl.com.bottega.ecommerce.sales.domain.invoicing;
 import org.junit.Test;
 import org.mockito.Mockito;
 import pl.com.bottega.ecommerce.canonicalmodel.publishedlanguage.ClientData;
+import pl.com.bottega.ecommerce.canonicalmodel.publishedlanguage.ClientDataBuilder;
 import pl.com.bottega.ecommerce.canonicalmodel.publishedlanguage.Id;
 import pl.com.bottega.ecommerce.sales.domain.productscatalog.ProductData;
 import pl.com.bottega.ecommerce.sales.domain.productscatalog.ProductType;
@@ -19,7 +20,7 @@ public class BookKeeperTest  {
     @Test
     public void ShouldIssueOnePositionInvoiceWhenRequestHasOnePosition() {
         // arrange
-        ClientData clientData = new ClientData(Id.generate(), "John Smith");
+        ClientData clientData = new ClientDataBuilder().build();
         Invoice invoice = new Invoice(Id.generate(), clientData);
         InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
         ProductData productData = new ProductData(
@@ -54,7 +55,7 @@ public class BookKeeperTest  {
     @Test
     public void ShouldCalculateTaxTwiceWhenRequestHasTwoPositions() {
         // arrange
-        ClientData clientData = new ClientData(Id.generate(), "John Smith");
+        ClientData clientData = new ClientDataBuilder().build();
         Invoice invoice = new Invoice(Id.generate(), clientData);
         InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
         ProductData productData = new ProductData(
@@ -91,7 +92,7 @@ public class BookKeeperTest  {
     @Test
     public void ShouldIssueZeroPositionInvoiceWhenRequestHasNoPositions() {
         // arrange
-        ClientData clientData = new ClientData(Id.generate(), "John Smith");
+        ClientData clientData = new ClientDataBuilder().build();
         Invoice invoice = new Invoice(Id.generate(), clientData);
         InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
 
@@ -115,7 +116,7 @@ public class BookKeeperTest  {
     @Test
     public void ShouldGetValidClientDataFromInvoice() {
         // arrange
-        ClientData clientData = new ClientData(Id.generate(), "John Smith");
+        ClientData clientData = new ClientDataBuilder().build();
         Invoice invoice = new Invoice(Id.generate(), clientData);
         InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
 
