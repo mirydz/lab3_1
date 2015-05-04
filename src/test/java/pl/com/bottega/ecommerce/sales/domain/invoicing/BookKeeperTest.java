@@ -22,7 +22,7 @@ public class BookKeeperTest  {
     public void ShouldIssueOnePositionInvoiceWhenRequestHasOnePosition() {
         // arrange
         ClientData clientData = new ClientDataBuilder().build();
-        Invoice invoice = new Invoice(Id.generate(), clientData);
+        Invoice invoice = new InvoiceBuilder().withClient(clientData).build();
         InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
         ProductData productData = new ProductDataBuilder().build();
 
@@ -36,7 +36,7 @@ public class BookKeeperTest  {
                 .thenReturn(invoice);
 
         TaxPolicy mockTaxPolicy = Mockito.mock(TaxPolicy.class);
-        Mockito.when(mockTaxPolicy.calculateTax(ProductType.DRUG, price))
+        Mockito.when(mockTaxPolicy.calculateTax(ProductType.STANDARD, price))
                 .thenReturn(new Tax(new Money(0), ""));
 
         // act
@@ -51,7 +51,7 @@ public class BookKeeperTest  {
     public void ShouldCalculateTaxTwiceWhenRequestHasTwoPositions() {
         // arrange
         ClientData clientData = new ClientDataBuilder().build();
-        Invoice invoice = new Invoice(Id.generate(), clientData);
+        Invoice invoice = new InvoiceBuilder().withClient(clientData).build();
         InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
         ProductData productData = new ProductDataBuilder().build();
 
@@ -82,7 +82,7 @@ public class BookKeeperTest  {
     public void ShouldIssueZeroPositionInvoiceWhenRequestHasNoPositions() {
         // arrange
         ClientData clientData = new ClientDataBuilder().build();
-        Invoice invoice = new Invoice(Id.generate(), clientData);
+        Invoice invoice = new InvoiceBuilder().withClient(clientData).build();
         InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
 
         // create mocks
@@ -91,7 +91,7 @@ public class BookKeeperTest  {
                 .thenReturn(invoice);
 
         TaxPolicy mockTaxPolicy = Mockito.mock(TaxPolicy.class);
-        Mockito.when(mockTaxPolicy.calculateTax(ProductType.DRUG, new Money(10)))
+        Mockito.when(mockTaxPolicy.calculateTax(ProductType.STANDARD, new Money(10)))
                 .thenReturn(new Tax(new Money(0), ""));
 
         // act
@@ -106,7 +106,7 @@ public class BookKeeperTest  {
     public void ShouldGetValidClientDataFromInvoice() {
         // arrange
         ClientData clientData = new ClientDataBuilder().build();
-        Invoice invoice = new Invoice(Id.generate(), clientData);
+        Invoice invoice = new InvoiceBuilder().withClient(clientData).build();
         InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
 
         // create mocks
@@ -115,7 +115,7 @@ public class BookKeeperTest  {
                 .thenReturn(invoice);
 
         TaxPolicy mockTaxPolicy = Mockito.mock(TaxPolicy.class);
-        Mockito.when(mockTaxPolicy.calculateTax(ProductType.DRUG, new Money(10)))
+        Mockito.when(mockTaxPolicy.calculateTax(ProductType.STANDARD, new Money(10)))
                 .thenReturn(new Tax(new Money(0), ""));
 
         // act
