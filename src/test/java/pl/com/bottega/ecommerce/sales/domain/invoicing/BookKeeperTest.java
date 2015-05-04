@@ -6,6 +6,7 @@ import pl.com.bottega.ecommerce.canonicalmodel.publishedlanguage.ClientData;
 import pl.com.bottega.ecommerce.canonicalmodel.publishedlanguage.ClientDataBuilder;
 import pl.com.bottega.ecommerce.canonicalmodel.publishedlanguage.Id;
 import pl.com.bottega.ecommerce.sales.domain.productscatalog.ProductData;
+import pl.com.bottega.ecommerce.sales.domain.productscatalog.ProductDataBuilder;
 import pl.com.bottega.ecommerce.sales.domain.productscatalog.ProductType;
 import pl.com.bottega.ecommerce.sharedkernel.Money;
 
@@ -23,13 +24,7 @@ public class BookKeeperTest  {
         ClientData clientData = new ClientDataBuilder().build();
         Invoice invoice = new Invoice(Id.generate(), clientData);
         InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
-        ProductData productData = new ProductData(
-                Id.generate(),
-                new Money(120, "PLN"),
-                "Sample Product",
-                ProductType.DRUG,
-                new Date()
-        );
+        ProductData productData = new ProductDataBuilder().build();
 
         Money price = new Money(10);
         RequestItem requestItem = new RequestItem(productData, 1, price);
@@ -58,13 +53,7 @@ public class BookKeeperTest  {
         ClientData clientData = new ClientDataBuilder().build();
         Invoice invoice = new Invoice(Id.generate(), clientData);
         InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
-        ProductData productData = new ProductData(
-                Id.generate(),
-                new Money(120, "PLN"),
-                "Sample Product",
-                ProductType.DRUG,
-                new Date()
-        );
+        ProductData productData = new ProductDataBuilder().build();
 
         Money price = new Money(10);
         RequestItem requestItem = new RequestItem(productData, 1, price);
