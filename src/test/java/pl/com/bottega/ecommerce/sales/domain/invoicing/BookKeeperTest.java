@@ -31,7 +31,7 @@ public class BookKeeperTest  {
         );
 
         Money price = new Money(10);
-        RequestItem requestItem = new RequestItem(productData, 0, price);
+        RequestItem requestItem = new RequestItem(productData, 1, price);
         invoiceRequest.add(requestItem);
 
         // create mocks
@@ -66,7 +66,7 @@ public class BookKeeperTest  {
         );
 
         Money price = new Money(10);
-        RequestItem requestItem = new RequestItem(productData, 0, price);
+        RequestItem requestItem = new RequestItem(productData, 1, price);
         invoiceRequest.add(requestItem);
         invoiceRequest.add(requestItem);
 
