@@ -12,6 +12,7 @@ import java.util.Date;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Matchers.any;
 
 public class BookKeeperTest  {
 
@@ -48,5 +49,42 @@ public class BookKeeperTest  {
 
         //assert
         assertThat(issuedInvoice.getItems().size(), is(1));
+    }
+
+    @Test
+    public void ShouldCalculateTaxTwiceWhenRequestHasTwoPositions() {
+        // arrange
+        ClientData clientData = new ClientData(Id.generate(), "John Smith");
+        Invoice invoice = new Invoice(Id.generate(), clientData);
+        InvoiceRequest invoiceRequest = new InvoiceRequest(clientData);
+        ProductData productData = new ProductData(
+                Id.generate(),
+                new Money(120, "PLN"),
+                "Sample Product",
+                ProductType.DRUG,
+                new Date()
+        );
+
+        Money price = new Money(10);
+        RequestItem requestItem = new RequestItem(productData, 0, price);
+        invoiceRequest.add(requestItem);
+        invoiceRequest.add(requestItem);
+
+        // create mocks
+        InvoiceFactory mockInvoiceFactory = Mockito.mock(InvoiceFactory.class);
+        Mockito.when(mockInvoiceFactory.create(invoiceRequest.getClientData()))
+                .thenReturn(invoice);
+
+        TaxPolicy mockTaxPolicy = Mockito.mock(TaxPolicy.class);
+        Mockito.when(mockTaxPolicy.calculateTax((ProductType) any(), (Money) any()))
+                .thenReturn(new Tax(new Money(0), ""));
+
+        // act
+        BookKeeper bookKeeper = new BookKeeper(mockInvoiceFactory);
+        bookKeeper.issuance(invoiceRequest, mockTaxPolicy);
+
+        //assert
+        Mockito.verify(mockTaxPolicy, Mockito.times(2))
+                .calculateTax((ProductType) any(), (Money) any());
     }
 }
